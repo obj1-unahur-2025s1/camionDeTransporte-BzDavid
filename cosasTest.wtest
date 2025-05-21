@@ -1,9 +1,50 @@
 import cosas.*
-
-describe "group of test for cosas" {
-
-  test "first test" {
-    assert.that(true)
+describe "Tests hasta acá para las cosas" {
+  test "El paquete de ladrillos cambia de peso según su cantidad, pero no de peligro" {
+    assert.equals(paqueteDeLadrillos.nivelDePeligro(), 2)
+    assert.equals(paqueteDeLadrillos.peso(), 0) //Cantidad inicial de ladrillos: 0.
+    paqueteDeLadrillos.cantidadDeLadrillos(200)
+    assert.equals(paqueteDeLadrillos.nivelDePeligro(), 2)
+    assert.notEquals(paqueteDeLadrillos.peso(), 0)
+    assert.equals(paqueteDeLadrillos.peso(), 400)
   }
 
+  test "La batería antiaérea viene por defecto cargada y por eso su peso y nivel de peligro son de 300 y 100. Si se cambia de misil, pasa a estar en niveles de 200 y 0 respectivamente." {
+    assert.equals(bateriaAntiaerea.peso(), 300)
+    assert.equals(bateriaAntiaerea.nivelDePeligro(), 100)
+    bateriaAntiaerea.cambiarMisil()
+    assert.notEquals(bateriaAntiaerea.peso(), 300)
+    assert.notEquals(bateriaAntiaerea.nivelDePeligro(), 100)
+    assert.equals(bateriaAntiaerea.peso(), 200)
+    assert.equals(bateriaAntiaerea.nivelDePeligro(), 0)
+  }
+
+  test "El contenedor portuario viene por defecto (sin contener nada) con valores de peso de 100 y de nivel de peligro de 0." {
+    assert.equals(contenedorPortuario.peso(), 100)
+    assert.equals(contenedorPortuario.nivelDePeligro(), 0)
+  }
+
+  test "Los valores del contenedor portuario dependen de los objetos que tenga adentro, no va a ser 100 y 0." {
+    assert.equals(contenedorPortuario.peso(), 100)
+    assert.equals(contenedorPortuario.nivelDePeligro(), 0)
+    contenedorPortuario.cargarCosa(knightRider)
+    contenedorPortuario.cargarCosa(bumblebee)
+    contenedorPortuario.cargarCosa(residuosRadioactivos)
+    assert.notEquals(contenedorPortuario.peso(), 100)
+    assert.notEquals(contenedorPortuario.nivelDePeligro(), 0)
+  }
+
+  test "El embalaje de seguridad solo puede contener un elemento, si se agrega uno es reemplazado por el nuevo." {
+    embalajeDeSeguridad.envolverCosa(knightRider)
+    assert.equals(embalajeDeSeguridad.peso(), 500)
+    embalajeDeSeguridad.envolverCosa(bumblebee)
+    assert.notEquals(embalajeDeSeguridad.peso(), 500)
+  }
+
+  test "El embalaje de seguridad adapta su peso y nivel de peligro (que es la mitad) a lo que tiene, en este caso, los residuos radiactivos con 30kg." {
+    embalajeDeSeguridad.envolverCosa(residuosRadioactivos)
+    residuosRadioactivos.peso(30)
+    assert.equals(embalajeDeSeguridad.peso(), 30)
+    assert.equals(embalajeDeSeguridad.nivelDePeligro(), 200 / 2)
+  }
 }

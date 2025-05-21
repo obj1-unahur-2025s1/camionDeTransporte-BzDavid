@@ -16,19 +16,17 @@ object bumblebee {
 
     method nivelDePeligro() = estado.nivelDePeligro()
 }
-
 //Estados de Bumblebee
-    object estadoRobot {
-        method nivelDePeligro() = 30
+object estadoRobot {
+    method nivelDePeligro() = 30
 
-        method siguienteEstado() = estadoAuto
-    }
-    object estadoAuto {
-        method nivelDePeligro() = 15
+    method siguienteEstado() = estadoAuto
+}
+object estadoAuto {
+    method nivelDePeligro() = 15
 
-        method siguienteEstado() = estadoRobot
-    }
-//---
+    method siguienteEstado() = estadoRobot
+}
 
 
 object paqueteDeLadrillos {
@@ -54,6 +52,8 @@ object paqueteDeLadrillos {
 object arenaAGranel {
     var property peso = 0
 
+    // method peso() = 00
+
     method nivelDePeligro() = 1
 }
 
@@ -69,22 +69,22 @@ object bateriaAntiaerea {
     method nivelDePeligro() = misilActual.nivelDePeligro()
 }
 //Misiles
-    object misil {
-        method peso() = 300
+object misil {
+    method peso() = 300
 
-        method siguienteMisil() = misilDescargado
+    method siguienteMisil() = misilDescargado
 
-        method nivelDePeligro() = 100
-    }
+    method nivelDePeligro() = 100
+}
 
-    object misilDescargado {
-        method peso() = 200 
+object misilDescargado {
+    method peso() = 200 
 
-        method siguienteMisil() = misil
+    method siguienteMisil() = misil
 
-        method nivelDePeligro() = 0
-    }
-//---
+    method nivelDePeligro() = 0
+}
+
 
 object contenedorPortuario {
     const cosasQueContiene = [] 
@@ -104,6 +104,8 @@ object contenedorPortuario {
 
 object residuosRadioactivos {
     var property peso = 0 
+
+    // method peso() = 00
 
     method nivelDePeligro() = 200
 }
