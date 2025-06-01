@@ -1,0 +1,46 @@
+import cosas2.*
+import camion2.*
+describe "Tests hasta acá para las cosas" {
+  test "KnightRider, arena a granel y residuos radioactivos ocupan 1 bulto cada uno en el camión." {
+    assert.equals(knightRider.cantidadDeBultos(), 1)
+    assert.equals(arenaAGranel.cantidadDeBultos(), 1)
+    assert.equals(residuosRadioactivos.cantidadDeBultos(), 1)
+  }
+
+  test "Bumblebee y embalaje de seguridad ocupan 2 bultos cada uno" {
+    assert.equals(bumblebee.cantidadDeBultos(), 2)
+    assert.equals(embalajeDeSeguridad.cantidadDeBultos(), 2)
+  }
+
+  test "Batería antiaérea ocupa 1 bulto si no tiene los misiles y 2 si los tiene cargados." {
+    assert.equals(bateriaAntiaerea.cantidadDeBultos(), 2)
+    bateriaAntiaerea.cambiarMisil()
+    assert.equals(bateriaAntiaerea.cantidadDeBultos(), 1)
+  }
+
+  test "El Contenedor portuario tiene como bultos 1 + los bultos de las cosas que tiene adentro." {
+    assert.equals(contenedorPortuario.cantidadDeBultos(), 1)
+    contenedorPortuario.cargarCosa(knightRider)
+    assert.equals(contenedorPortuario.cantidadDeBultos(), 2)
+    contenedorPortuario.cargarCosa(bumblebee)
+    assert.equals(contenedorPortuario.cantidadDeBultos(), 4)
+  }
+
+  test "Cuando se carga, bumblebee cambia a estado robot." {
+    assert.equals(bumblebee.nivelDePeligro(), 15)
+    bumblebee.sufrirCarga()
+    assert.equals(bumblebee.nivelDePeligro(), 30)
+  }
+
+  test "Cuando se carga, el paquete de ladrillos agrega 12 ladrillos." {
+    assert.equals(paqueteDeLadrillos.peso(), 0)
+    paqueteDeLadrillos.sufrirCarga()
+    assert.notEquals(paqueteDeLadrillos.peso(), 0)
+  }
+
+  test "Cuando se carga, los residuos radioactivos agrega 15 de peso." {
+    assert.equals(residuosRadioactivos.peso(), 0)
+    residuosRadioactivos.sufrirCarga()
+    assert.notEquals(residuosRadioactivos.peso(), 0)
+  }
+}

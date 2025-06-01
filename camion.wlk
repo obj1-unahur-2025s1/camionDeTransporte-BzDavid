@@ -40,7 +40,7 @@ object camion {
         {cosa => cosa.nivelDePeligro()}
     )
 
-    method puedeCircularEnRutaConPeligro(nivelDePeligroPermitido) = not self.estaExcedidoDePeso() and self.cosaConMayorNivelDePeligro() <= nivelDePeligroPermitido
+    method puedeCircularConPeligroDeRutaMaximoDe_(nivelDePeligroPermitido) = not self.estaExcedidoDePeso() and self.cosaConMayorNivelDePeligro().nivelDePeligro() <= nivelDePeligroPermitido
 
     //también podría haber sido carga.all({cosa => cosa.nivelDePeligrosidad() <= nivelDePeligroPermitido})
 
@@ -51,10 +51,4 @@ object camion {
     method cosaConMayorPeso() = carga.max(
         {cosa => cosa.peso()}
     )
-
-    method sobrepasaLaCapacidad() {
-
-    }
-
-    method nivelDePeligrosidad() = 1
 }

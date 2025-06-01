@@ -38,14 +38,6 @@ object paqueteDeLadrillos {
         cantidadDeLadrillos = nuevaCantidad
     }
 
-    method agregarLadrillo() {
-        self.cantidadDeLadrillos(cantidadDeLadrillos + 1)
-    }
-
-    method quitarLadrillo() {
-        self.cantidadDeLadrillos(cantidadDeLadrillos - 1)
-    }
-
     method peso() = cantidadDeLadrillos * 2
 
     method nivelDePeligro() = 2

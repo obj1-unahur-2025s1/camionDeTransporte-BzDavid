@@ -1,0 +1,36 @@
+import camion2.*
+import cosas2.*
+describe "Tests hasta acá para el camión" {
+  test "Se comprueba que el total de bultos del camion es 7 con la carga de prueba." {
+    testObject.cargarCamion()
+    assert.equals(camion.totalDeBultos(), 7)
+  }
+
+  test "Se comprueba que el total de bultos del camion es 7 con la carga de prueba, pero con la cantidad de ladrillos al 400. Se compreuba que no afecta ya que esta envuelto." {
+    testObject.cargarCamion()
+    paqueteDeLadrillos.cantidadDeLadrillos(400)
+    assert.equals(camion.totalDeBultos(), 7)
+  }
+
+  test "Cuando se carga el camión, se comprueba que la carga sufre las consecuencias." {
+    assert.equals(paqueteDeLadrillos.peso(), 0)
+    assert.equals(arenaAGranel.peso(), 0)
+    testObject.cargarCamion()
+    paqueteDeLadrillos.sufrirCarga()
+    assert.equals(paqueteDeLadrillos.peso(), 184)
+    assert.equals(arenaAGranel.peso(), 140)
+  }
+}
+
+object testObject {
+  method cargarCamion() {
+    bumblebee.transformar()
+    camion.cargarCosa(bumblebee)
+    arenaAGranel.peso(150)
+    camion.cargarCosa(arenaAGranel)
+    camion.cargarCosa(bateriaAntiaerea)
+    paqueteDeLadrillos.cantidadDeLadrillos(80)
+    embalajeDeSeguridad.envolverCosa(paqueteDeLadrillos)
+    camion.cargarCosa(embalajeDeSeguridad)
+  } 
+}

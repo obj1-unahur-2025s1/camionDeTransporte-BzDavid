@@ -1,0 +1,86 @@
+import camion.*
+import cosas.*
+describe "Tests hasta acá para el camión" {
+  test "El camión, cargado con bumblebee como robot. Se prueba que se puede cargar y descargar. También se prueba el peso de la carga del camión, junto con el peso total." {
+    bumblebee.transformar()
+    camion.cargarCosa(bumblebee)
+    assert.equals(camion.pesoDeLaCarga(), 800)
+    assert.equals(camion.pesoTotal(), 1800)
+    camion.descargarCosa(bumblebee)
+    assert.equals(camion.pesoDeLaCarga(), 0)
+    assert.equals(camion.pesoTotal(), 1000)
+    assert.equals(camion.carga().size(), 0)
+  }
+
+  test "Son pares los pesos de la carga del camión" {
+    testObject.cargarCamion()
+    assert.that(camion.sonParesLosPesosDeLaCarga())
+  }
+
+  test "Se comprueba que el camión tiene una cosa con peso de 150 pero no de 100" {
+    testObject.cargarCamion()
+    assert.that(camion.hayCosaConPesoDe_(150))
+    assert.notThat(camion.hayCosaConPesoDe_(100))
+  }
+
+  test "Se comprueba que hay una cosa con nivel de peligro 30 (bumblebee). Se comprueba que solo devuelve la primera cosa que cumpla esta condición" {
+    testObject.cargarCamion()
+    arenaAGranel.peso(30)
+    assert.equals(camion.primerCosaConNivelDePeligro_(30), bumblebee)
+    assert.notEquals(camion.primerCosaConNivelDePeligro_(30), arenaAGranel)
+  }
+
+  test "Se comprueba que hay una lista de cosas con nivel de peligro mayor a 10 (bumblebee y la batería antiaérea). Se comprueba que no devuelve nada si no hay cosas con nivel de peligro mayor a 110" {
+    testObject.cargarCamion()
+    assert.equals(camion.listaDeCosasConNivelDePeligroMayorA_(10).size(), 2)
+    assert.that(camion.listaDeCosasConNivelDePeligroMayorA_(110).isEmpty())
+  }
+
+  test "Se comprueba que hay una lista de cosas que superan el nivel de peligro del paquete de los ladrillos (2). Se comprueba que no devuelve nada si no hay cosas con nivel de peligro mayor a 100" {
+    testObject.cargarCamion()
+    assert.equals(camion.listaDeCosasQueSuperanElNivelDePeligroDe_(paqueteDeLadrillos).size(), 2)
+    assert.that(camion.listaDeCosasQueSuperanElNivelDePeligroDe_(bateriaAntiaerea).isEmpty())
+  }
+
+  test "Se comprueba que el camión no está excedido de peso. Pero si le agregamos una cosa más, sí lo está" {
+    testObject.cargarCamion()
+    assert.notThat(camion.estaExcedidoDePeso())
+    camion.cargarCosa(knightRider)
+    assert.that(camion.estaExcedidoDePeso())
+  }
+
+  test "Se comprueba que la cosa con mayor nivel de peligro es, en este caso, bumblebee." {
+    testObject.cargarCamion()
+    assert.equals(camion.cosaConMayorNivelDePeligro(), bateriaAntiaerea)
+  }
+
+  test "Se comprueba que se puede circular en ruta con peligro de 100, pero no con 20" {
+    testObject.cargarCamion()
+    assert.that(camion.puedeCircularConPeligroDeRutaMaximoDe_(100))
+    assert.notThat(camion.puedeCircularConPeligroDeRutaMaximoDe_(20))
+  }
+
+  test "Tiene una cosa con peso entre 100 y 200 (bateria antiaérea) pero no entre 500 y 600" {
+    testObject.cargarCamion()
+    assert.that(camion.tieneCosaConPesoEntre_Y_(100, 200))
+    assert.notThat(camion.tieneCosaConPesoEntre_Y_(500, 600))
+  }
+
+  test "Se comprueba que la cosa con mayor peso es, en este caso, bumblebee." {
+    testObject.cargarCamion()
+    assert.equals(camion.cosaConMayorPeso(), bumblebee)
+  }
+}
+
+object testObject {
+  method cargarCamion() {
+    bumblebee.transformar()
+    camion.cargarCosa(bumblebee)
+    arenaAGranel.peso(150)
+    camion.cargarCosa(arenaAGranel)
+    camion.cargarCosa(bateriaAntiaerea)
+    paqueteDeLadrillos.cantidadDeLadrillos(80)
+    embalajeDeSeguridad.envolverCosa(paqueteDeLadrillos)
+    camion.cargarCosa(embalajeDeSeguridad)
+  } 
+}
